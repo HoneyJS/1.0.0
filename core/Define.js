@@ -1,0 +1,62 @@
+/**
+ * 一些常量
+ */
+var Define = {
+	Element : {
+		Default:"Element",
+		Image:"Image",
+		LineText:"LineText",
+		Button:"Button",
+		Text:"Text",
+		Input:"Input",
+		TextAarea:"TextArea",
+		CheckBox:"CheckBox",
+		Radio:"Radio",
+		Node:"Node",
+	},
+	Path : {
+		Image:"images/",
+		Dialog:"dialogs/",
+	},
+	Const : {
+		ScrollX : 0x1,
+		ScrollY : 0x2,
+		ScrollXY : 0x3,
+		Align_Left : 0x00,
+		Align_Center : 0x01,
+		Align_Right : 0x02,
+		Align_Top : 0x00,
+		Align_Bottom : 0x02,
+		Align_None : 0x03,
+		Align_LT : 0x00|0x00,
+		Align_CT : 0x01|0x00,
+		Align_RT : 0x02|0x00,
+		Align_NT : 0x03|0x00,
+		Align_LC : 0x00|0x10,
+		Align_CC : 0x01|0x10,
+		Align_RC : 0x02|0x10,
+		Align_NC : 0x03|0x10,
+		Align_LB : 0x00|0x20,
+		Align_CB : 0x01|0x20,
+		Align_RB : 0x02|0x20,
+		Align_NB : 0x03|0x20,
+		Align_LN : 0x00|0x30,
+		Align_CN : 0x01|0x30,
+		Align_RN : 0x02|0x30,
+		Align_NN : 0x03|0x30,
+	},
+	Http : {
+		ReadyState : {
+			Uninitialized : 0,
+			Open : 1,
+			Send : 2,
+			Receiving : 3,
+			Loaded : 4,
+		},
+		Fail : {
+			Timeout : "Timeout",
+			NotSupport : "Not Support",
+			State : "State",
+		},
+	},
+};

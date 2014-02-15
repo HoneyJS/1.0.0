@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=no; target-densitydpi=device-dpi;" />
+<!-- target-densitydpi=device-dpi; -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="screen-orientation" content="landscape" />
+<!--meta name="full-screen" content="yes" /-->
+<meta name="imagemode" content="force"/>
+<meta name="browsermode" content="application" />
+<title>Demo Based on HoneyJS</title>
+<script src="core/Define.js"></script>
+<script src="core/Util.js"></script>
+<script src="core/Honey.js"></script>
+<script src="core/Storage.js"></script>
+<script src="core/Action.js"></script>
+<script src="core/Resource.js"></script>
+<script src="core/Graphics.js"></script>
+<script src="core/Matrix.js"></script>
+<script src="core/Style.js"></script>
+<script src="core/Events.js"></script>
+<script src="core/Element.js"></script>
+<script src="core/Node.js"></script>
+<script src="core/BasicElement.js"></script>
+<script src="core/Sprite.js"></script>
+<script src="core/DirtyRect.js"></script>
+<script src="core/Body.js"></script>
+<script src="core/Audio.js"></script>
+<script src="core/KeyMouseTouchEvent.js"></script>
+<script src="config.js"></script>
+<script src="game/Define.js"></script>
+<script src="styles.js"></script>
+<script src="game/Dialog.js"></script>
+<script src="game/Component.js"></script>
+<script src="game/Figure.js"></script>
+<script src="game/Character.js"></script>
+<script src="game/Role.js"></script>
+<script src="game/NPC.js"></script>
+<script src="game/Creep.js"></script>
+<script src="game/Thing.js"></script>
+<script src="game/Actor.js"></script>
+<script src="game/Map.js"></script>
+<script src="game/MainMap.js"></script>
+<style type="text/css">
+* {
+	margin: 0px;
+	padding: 0px;
+}
+</style>
+</head>
+<body onload="init()">
+<canvas id="canvas" style="position: absolute; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
+<div id="notice" style="position: absolute; background-color: white; border: solid 1px; padding: 5px; width: 400px; height: 200px; overflow: auto; display: none;" onclick="this.style.display='none';">
+	公告（点击关闭）：<br />
+</div>
+<script>
+function init() {
+	var canvas = document.getElementById("canvas");
+	Honey.body = new Honey.Body(canvas, {fps:1000, useDirty:1});
+	//FPS
+	Honey.body.add("LineText", {z:100, setClass:"fps", schedule:[function(){
+		this.content("FPS:"+Honey.body.fpsShow+" useDirty:"+Honey.body.useDirty+" DirtyRects:"+Honey.body.dirtyShow);
+		this.y(this.body().height()-this.height());
+	}, 10]});
+	//坐标
+	Honey.body.add("LineText", {z:100, setClass:"zuobiao", schedule:[function(){
+		//在当前人物必在中间显示的情况下，xy就是屏幕中间点
+		var xy = [MainMap.width()/2, MainMap.height()/2];
+		var coor = MainMap.getCoordinate(xy[0], xy[1]);
+		this.content("坐标:("+coor[0]+","+coor[1]+")");
+		this.x(this.body().width()-this.width());
+		this.y(this.body().height()-this.height());
+	}, 10]});
+	
+	//地图
+	Honey.body.add(MainMap);
+	///当前人物
+	Honey.MyRole = new Honey.Role("MyRole", {nickname:"我", coordinate:[9, 5], mapName:"test", setFigure:"role_male_1", attr:{attackSpeed:3}});
+	//主动触发适应屏幕大小
+	EventM.trigger("resize");
+	
+	///TEST
+	//显示公告
+	var notice = document.getElementById("notice");
+	Honey.Resource.loadData("notice.js?_t="+new Date().getTime(), notice, function(url, data){
+		foreach.call(this, data, function(info){
+			this.innerHTML += info+"<br/>";
+		});
+		this.style.left = (canvas.width-parseInt(this.style.width))/2+"px";
+		this.style.top = (canvas.height-parseInt(this.style.height))/2+"px";
+		this.style.display = '';
+	});
+	//new Honey.Audio("love.mp3").autoplay().loop();
+};
+</script>
+
+</body>
+</html>

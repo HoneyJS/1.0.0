@@ -1,0 +1,14 @@
+Honey.data=
+{
+	nickname:"怪物",
+	level:1,
+	setFigure:"creep_1",
+	attr:{
+		moveSpeed:0.5,
+		HP:200,
+		HP_MAX:200,
+		defence:5,
+		attack:8,
+		attackSpeed:0.5,
+	},
+}

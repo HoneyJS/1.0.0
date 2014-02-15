@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=no; target-densitydpi=device-dpi;" />
+<!-- target-densitydpi=device-dpi; -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="screen-orientation" content="portrait" />
+<meta name="imagemode" content="force"/>
+<meta name="browsermode" content="application" />
+<title>The Manual of HoneyJS</title>
+<script src="core/Define.js"></script>
+<script src="core/Util.js"></script>
+<script src="core/Honey.js"></script>
+<script src="core/Resource.js"></script>
+<script src="core/Graphics.js"></script>
+<script src="core/Matrix.js"></script>
+<script src="core/Style.js"></script>
+<script src="core/Events.js"></script>
+<script src="core/Action.js"></script>
+<script src="core/Element.js"></script>
+<script src="core/Node.js"></script>
+<script src="core/BasicElement.js"></script>
+<script src="core/Sprite.js"></script>
+<script src="core/DirtyRect.js"></script>
+<script src="core/Body.js"></script>
+<script src="core/Audio.js"></script>
+<script src="core/KeyMouseTouchEvent.js"></script>
+<script src="config.js"></script>
+<script src="smage/styles.js"></script>
+</head>
+<body onload="init()">
+<canvas id="canvas" style="position: absolute; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
+<script>
+function init() {
+	var canvas = document.getElementById("canvas");
+	Honey.pushBody(new Honey.Body(canvas, {fps:1000, useDirty:1}));
+	//FPS
+	Honey.body.add("LineText", {z:100, setClass:"fps", schedule:[function(){
+		this.content("FPS:"+Honey.body.fpsShow+" useDirty:"+Honey.body.useDirty+" DirtyRects:"+Honey.body.dirtyShow);
+		this.y(this.body().height()-this.height());
+	}, 10]});
+	
+	//主动触发适应屏幕大小
+	EventM.trigger("resize");
+	
+	///TEST
+	Honey.body.add("Element", {}, {width:Honey.body.width(), height:Honey.body.height(), bgColor:"black"});
+	var a1 = Honey.body.add("Element", {y:-199}, {width:100, height:100, bgColor:"red"});
+	var a2 = Honey.body.add("Element", {y:-99}, {width:100, height:100, bgColor:"green"});
+	a1.schedule([function(){
+		this.y(this.y()+200);
+	}, 100]);
+	a2.schedule([function(){
+		this.y(this.y()+200);
+	}, 100]);
+};
+</script>
+</body>
+</html>
